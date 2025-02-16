@@ -1,39 +1,50 @@
 <?php
 
-class Usuario {
-  
+class Producto{
 
-
-  // Propiedades o Atributos
-  // Son declarados como public (publicos) pueden ser accedidos desde afuera
   public $nombre;
-  public $email;
+  public $precio;
 
-  // Metodos
-  // Declarado como public (publicos) pueden ser accedidos desde afuera
-  public function saludad(){
-    return "Hola, soy {$this->nombre} y mi email es {$this->email}.";
-
+  public function __construct($nombre,$precio){
+    $this->nombre = $nombre;
+    $this->precio = $precio;
   }
+
+  public function getNombre(){
+    return $this->nombre;
+  }
+
+  public function getPrecio(){
+    return $this->precio;
+  }
+
+  public function setPrecio($nuevoPrecio){
+    if($nuevoPrecio > 0){
+      $this->precio = $nuevoPrecio;
+    }else{
+      echo "Error: el nuevo precio no puede ser negativo \n";
+    }
+  }
+
+  // un poco mas de logica dentro de este metodo
+  public function aplicarDescuento($porcentaje){
+    if($porcentaje > 0 && $porcentaje <= 100){
+      $descuento = ($porcentaje * $this->precio) / 100;
+      $this->precio -= $descuento;
+      echo "Descuento de {$descuento}% aplicado. Nuevo precio {$this->precio} \n";
+    }else{
+      echo "El descuento no puede ser negativo";
+    }
+  }
+
+
+
 
 }
 
-
-$cokie = New Usuario();            // Instanciar un objeto
-$cokie->nombre = "Jony Bravo";     // darle un valor a un atributo
-$cokie->email = "jony@gmail.com";  
-
-
-// Acceder a un metodo de clase
-echo $cokie->saludad();
-
-
-// En esta nueva sintaxis
-// Utilizamos -> para acceder a las propiedes y metodos del objeto
-
-
-
-
+$suli = new Producto("arroz", 100);
+$suli->aplicarDescuento(40);
+$suli->setPrecio(300);
 
 
 ?>
